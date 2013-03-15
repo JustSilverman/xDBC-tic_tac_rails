@@ -16,5 +16,38 @@ describe Game do
     it { should belong_to(:active_player) }
     it { should belong_to(:winner) }
   end  
-  
+
+  context '.new' do
+    it 'will have a board that is a string' do
+      Game.new.board.should be_a(String)
+    end
+
+    it 'will have a blank board' do
+      Game.new.board.should eq "-" * 9
+    end
+  end
+
+  context '#update!' do
+    let(:game) { create(:game, :board => "-" * 9) }
+    let(:invalid_board) { "X" * 3 }
+    let(:valid_board) { Array.new(9) { ["O", "X", "-"].sample}.join("") }
+    
+    it "does not update board unless argument is a String" do
+      expect {
+        game.update!((0..8).to_a)
+      }.to_not change(game, :board)
+    end  
+
+    it "does not update board unless argument has 9 characters" do
+      expect {
+        game.update!(invalid_board)
+      }.to_not change(game, :board)
+    end  
+
+    it "updates the game's board" do
+      expect {
+        game.update!(valid_board)
+      }.to change { game.board }.to(valid_board) 
+    end  
+  end
 end
