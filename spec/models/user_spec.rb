@@ -14,7 +14,13 @@ describe User do
     it { should validate_uniqueness_of(:email) }
   end
 
-  context 'authentication' do 
+  context 'associations' do
+    it { should have_many(:player1_games) }
+    it { should have_many(:player2_games) }
+    it { should have_many(:won_games) }
+  end
+
+  context '#authenticate' do 
     let!(:user) { create(:user) }
     
     it 'logs in with the correct password' do

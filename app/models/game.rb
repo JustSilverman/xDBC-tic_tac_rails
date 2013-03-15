@@ -7,6 +7,6 @@ class Game < ActiveRecord::Base
 
   validates :board, :presence => true
   validates :player1, :presence => true
+  validates :player1_id, :uniqueness => { :scope => :player2_id }
   validates :active_player, :presence => true
-
 end
