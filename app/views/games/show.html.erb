@@ -1,0 +1,27 @@
+<table class="board">
+  <tr>
+    <td id="cell_0"><%= game.c0 %></td>
+    <td id="cell_1"><%= game.c1 %></td>
+    <td id="cell_2"><%= game.c2 %></td>
+  </tr>
+  <tr>
+    <td id="cell_3"><%= game.c3 %></td>
+    <td id="cell_4"><%= game.c4 %></td>
+    <td id="cell_5"><%= game.c5 %></td>
+  </tr>
+  <tr>
+    <td id="cell_6"><%= game.c6 %></td>
+    <td id="cell_7"><%= game.c7 %></td>
+    <td id="cell_8"><%= game.c8 %></td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  game.init({
+    'player_id': '<%= @user.id %>'
+    'player_token': '<%= @user.token(@game.id) %>',
+    'move_url': '<%= j game_move_url(@game) %>',
+    'winning_url': '<%= j game_winning_url(@game) %>'
+    'current_board': '<%= j @game.board %>'
+  });
+</script>
