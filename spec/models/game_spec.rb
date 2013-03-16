@@ -67,4 +67,34 @@ describe Game do
       game.player_token(game.player2_id).should eq 'X'
     end  
   end
+
+  context 'player?' do
+    let(:player1) { create(:user) }
+    let(:game)    { create(:game, :player1 => player1) }
+    let(:player3) { create(:user) }
+
+    it 'user is valid player' do
+      game.player?(player1.id).should eq true
+    end 
+
+    it 'user is not valid player' do
+      game.player?(player3.id).should eq false
+    end 
+  end 
+
+  context 'set_winner!' do
+    let(:player1)  { create(:user) }
+    let(:game)     { create(:game, :player1 => player1) }
+    let(:game_won) { create(:game_with_winner) }
+  
+    it 'winner must be one of the valid players' do
+      expect {
+        game.set_winner!(player1.id)
+      }.to change {game.winner_id}.to(player1.id)
+    end
+
+    it 'return false if winner has already been set' do
+      game_won.set_winner!(player1).should eq false
+    end  
+  end
 end

@@ -21,7 +21,21 @@ class Game < ActiveRecord::Base
   end
 
   def player_token(user_id)
-    return nil unless [player1_id, player2_id].include? user_id
+    return nil unless player?(user_id)
     self.player1_id == user_id ? "O" : "X"
+  end
+
+  def player?(user_id)
+    players.map(&:id).include?(user_id)
+  end  
+
+  def set_winner!(user_id)
+    return false unless self.player?(user_id)
+    self.update_attributes(:winner => User.find(user_id))
+  end    
+
+  private
+  def players
+    [self.player1, self.player2]
   end
 end
