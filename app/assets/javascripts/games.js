@@ -4,10 +4,19 @@ var game = {
     this.playerID     = settings.player_id;
     this.moveUrl      = settings.move_url;
     this.winningUrl   = settings.winning_url;
+    this.pollingUrl   = settings.polling_url;
     this.board        = $('.board');
     this.cells        = $('.board td');
     this.currentBoard = settings.current_board;
-    gameMessages.init();
+    this.startGame();
+  },
+
+  startGame: function(){
+    if (this.playerToken == "X" ) {
+      game.cells.on('click', function(){
+        game.executeTurn(this);
+      });
+    } else this.pollResults();
   },
 
   executeTurn: function(cell){
@@ -15,39 +24,32 @@ var game = {
   },
 
   checkCellContents: function(cell){
-    if ($(cell).text() == "") {
+    if ($(cell).text() == " ") {
       this.updateCell(cell);
     }
   },
 
   updateCell: function(cell){
-    $(cell).append(game.playerToken);
+    $(cell).text(game.playerToken);
     this.updateCurrentBoard(cell);
   },
 
   updateCurrentBoard: function(cell){
-    var indexToUpdate = $(cell).attr('id').charAt(id.length-1);
+    var indexToUpdate = $(cell).attr('id').substring(5);
     this.substituteString(indexToUpdate);
   },
 
   substituteString: function(index){
-    this.currentBoard = this.firstPart(index) + this.playerToken + this.lastPart(index);
-    this.sendToServer(this.currentBoard);
+    this.currentBoard = this.cells.text();
+    this.sendToServer();
   },
 
-  firstPart: function(index){
-    this.currentBoard.substring(0,index-1);
-  },
-
-  lastPart: function(index){
-    this.currentBoard.substring(index-1, this.currentBoard.length-1);
-  }
-
-  sendToServer: function(cellText, cellID){
+  sendToServer: function(){
     $.ajax({
       url: this.moveUrl,
       type: "POST",
-      data: this.currentBoard
+      data: { board: game.currentBoard },
+      dataType: "json"
     }).done(function(data){
       game.waitForUpdate(data);
     });
@@ -66,17 +68,17 @@ var game = {
     $.ajax({
       url: this.winningUrl,
       type: "POST",
-      data: this.playerID
+      data: {winner_id: this.playerID }
     }).done(function(){
       game.displayWinner("You've won!");
     })
   },
 
-
   pollResults: function(){
     $.ajax({
-      url: "/game/board",
-      type: "POST"
+      url: this.pollingUrl,
+      type: "get",
+      dataType: "json"
     }).done(function(data){
       game.checkStatus(data);
     });
@@ -84,15 +86,15 @@ var game = {
 
   checkStatus: function(data){
     if (this.currentBoard == data) {
-      setTimeout(function(){this.pullResults()}, 2000);
+      setTimeout(function(){game.pollResults()}, 2000);
     } else this.updateBoard(data);
-  }
+  },
 
   updateBoard: function(string) {
     for (var i = 0; i < string.length; i++) {
       $("#cell_"+i).text(string.charAt(i));
     }
-    if (checkForWinner(string)) {
+    if (checkForWinner.init(string)) {
       game.displayWinner("You've lost!");
     } else game.enableClicks();
   },
@@ -111,4 +113,3 @@ var game = {
     this.board.prepend(message);
   }
 }
-// $('table').children.text()

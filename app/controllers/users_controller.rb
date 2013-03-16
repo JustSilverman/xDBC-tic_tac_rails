@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      login(@user.id)
+      login!(@user.id)
       redirect_to root_path     
     else
       render 'games/index'

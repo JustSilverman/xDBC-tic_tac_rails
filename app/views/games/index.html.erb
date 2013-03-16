@@ -4,6 +4,7 @@
 
 <% if @games %>
   <% if current_user %>
+    <%= link_to "Create new game", games_path, :method => :post %>
     <%= render "game_list_with_links", :games => @games%>
   <% else %>
     <%= render "game_list_without_links", :games => @games %>

@@ -1,11 +1,16 @@
+<% puts "hello" %>
 <%= render 'game_board', :game => @game %>
+<% puts "goodbye" %>
 
 <script type="text/javascript">
-  game.init({
-    'player_id': '<%= @user.id %>'
-    'player_token': '<%= @user.token(@game.id) %>',
-    'move_url': '<%= j game_move_url(@game) %>',
-    'winning_url': '<%= j game_winning_url(@game) %>'
-    'current_board': '<%= j @game.board %>'
+  $(document).ready(function() {
+    game.init({
+      'player_id': '<%= current_user.id %>',
+      'player_token': '<%= @game.player_token(current_user.id) %>',
+      'move_url': '<%= j game_moves_path(@game) %>',
+      'winning_url': '<%= j game_winner_path(@game) %>',
+      'polling_url': '<%= j game_path(@game) %>',
+      'current_board': '<%= j @game.board %>'
+    });
   });
 </script>

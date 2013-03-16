@@ -3,13 +3,14 @@ class SessionsController < ApplicationController
   def login
     @user = User.find_by_email(params[:email])
     if @user && @user.authenticate(params[:password])
-      login(@user.id)
+      login!(@user.id)
     end
-    render 'games/index'
+    @user = User.new unless @user
+    redirect_to root_path
   end
 
   def logout
-    logout
+    logout!
     redirect_to root_path
   end
 end
