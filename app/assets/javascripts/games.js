@@ -35,12 +35,7 @@ var game = {
     this.updateCurrentBoard(cell);
   },
 
-  updateCurrentBoard: function(cell){
-    var indexToUpdate = $(cell).attr('id').substring(5);
-    this.substituteString(indexToUpdate);
-  },
-
-  substituteString: function(index){
+  updateCurrentBoard: function(){
     this.currentBoard = this.cells.text();
     this.sendToServer();
   },
