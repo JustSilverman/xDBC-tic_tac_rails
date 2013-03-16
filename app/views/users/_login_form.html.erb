@@ -1,8 +1,12 @@
 <%= form_for user do |f| %>
 
-  <%= f.text_field :email, :placeholder => 'Email' %>
-  <%= f.text_field :password, :placeholder => 'Password' %>
+  <p>
+    <%= f.text_field :email, :placeholder => 'Email' %>
+  </p>
+  <p>
+    <%= f.text_field :password, :placeholder => 'Password' %>
+  </p>
 
-  <%= f.submit 'Sign In' %>
+  <p><%= f.submit 'Sign In' %></p>
 
 <% end %>
