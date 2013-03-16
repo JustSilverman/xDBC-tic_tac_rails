@@ -1,4 +1,7 @@
-<%= render 'game_board', :game => @game %>
+<div class="container">
+  <%= render 'game_board', :game => @game %>
+  <%= image_tag "/assets/grid.png", class: "background-image" %>
+</div>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -12,4 +15,3 @@
     });
   });
 </script>
-

@@ -1,18 +1,30 @@
 .board {
-  margin: 5em auto;
+  position: fixed;
+  left: 20em;
+  width:  1200px;
+  z-index: 1;
+  margin: 0 auto;
+}
+
+.background-image {
+  position: fixed;
+  top: 5em;
+  left: 22em;
+  z-index:-1;
+  opacity: 0.7;
+  height: 800px;
+  width:  1200px;
 }
 
 .board td {
-  width: 100px;
-  height: 100px;
+  padding: 10px;
+  width: 350px;
+  height: 225px;
   text-align: center;
 }
 
-
-#cell_0,#cell_1,#cell_2,#cell_3,#cell_4,#cell_5 {
-    border-bottom: 2px solid black;
-}
-
-td#cell_0, td#cell_1, td#cell_3, td#cell_4, td#cell_6, td#cell_7 {
-    border-right: 2px solid black;
+.board-icon {
+  width: 200px;
+  height: 175px;
+  background-color: rgba(255,0,0,0.5);
 }
