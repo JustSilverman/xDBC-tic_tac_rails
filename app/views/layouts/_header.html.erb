@@ -8,8 +8,8 @@
       <%= link_to "New Game", games_path, :method => :post %>
       <%= link_to "Log Out", logout_path, :method => :post %>
     <% else %>
-      <%= link_to "Sign Up", "#" %>
-      <%= link_to "Sign In", "#" %>
+      <%= link_to "Sign Up", "#", :class => 'signup-button' %>
+      <%= link_to "Sign In", "#", :class => 'signin-button' %>
     <% end %>
   </div>
 </div>

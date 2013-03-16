@@ -9,6 +9,7 @@ var game = {
     this.cells        = $('.board td');
     this.currentBoard = settings.current_board;
     this.startGame();
+    gameMessages.init();
   },
 
   startGame: function(){
@@ -58,10 +59,15 @@ var game = {
   waitForUpdate: function(data){
     this.currentBoard = data;
     this.disableClicks();
+    this.checkGameStatusBeforePolling(data);
+  },
+
+  checkGameStatusBeforePolling: function(data){
     if (checkForWinner.init(data)) {
       this.postWinner();
-    }
-    this.pollResults();
+    } else if (this.checkForTie()) {
+      this.displayMessage(gameMessages.tie); 
+    } else this.pollResults();
   },
 
   postWinner: function(){
@@ -70,7 +76,7 @@ var game = {
       type: "POST",
       data: {winner_id: this.playerID }
     }).done(function(){
-      game.displayWinner("You've won!");
+      game.displayMessage(gameMessages.winner);
     })
   },
 
@@ -91,12 +97,23 @@ var game = {
   },
 
   updateBoard: function(string) {
+    this.currentBoard = string;
+    this.populateTable(string);
+    this.checkGameStatusAfterPolling();
+  },
+
+  checkGameStatusAfterPolling: function(){
+    if (checkForWinner.init(this.currentBoard)) {
+      this.displayMessage(gameMessages.loser);
+    } else if (this.checkForTie()) {
+      this.displayMessage(gameMessages.tie);
+    } else game.enableClicks();
+  },
+
+  populateTable: function(string){
     for (var i = 0; i < string.length; i++) {
       $("#cell_"+i).text(string.charAt(i));
     }
-    if (checkForWinner.init(string)) {
-      game.displayWinner("You've lost!");
-    } else game.enableClicks();
   },
 
   disableClicks: function(){
@@ -109,7 +126,11 @@ var game = {
     });
   },
 
-  displayWinner: function(message){
+  displayMessage: function(message){
     this.board.prepend(message);
+  },
+
+  checkForTie: function(){
+    if (game.currentBoard.indexOf(" ") === -1) return true;
   }
 }

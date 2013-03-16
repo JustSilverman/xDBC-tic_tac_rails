@@ -18,7 +18,7 @@ class Game < ActiveRecord::Base
 
   def player_token(user_id)
     return nil unless player?(user_id)
-    self.player1_id == user_id ? "O" : "X"
+    self.player1_id == user_id ? "X" : "O"
   end
 
   def player?(user_id)
