@@ -14,13 +14,12 @@
 ActiveRecord::Schema.define(:version => 20130315220212) do
 
   create_table "games", :force => true do |t|
-    t.string   "board",            :null => false
-    t.integer  "player1_id",       :null => false
+    t.string   "board",      :null => false
+    t.integer  "player1_id", :null => false
     t.integer  "player2_id"
     t.integer  "winner_id"
-    t.integer  "active_player_id", :null => false
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

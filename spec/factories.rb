@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :user, :aliases => [:player1, :player2, :winner, :active_player] do
+  factory :user, :aliases => [:player1, :player2, :winner] do
     sequence(:username) {|n| "John#{n}" }
     sequence(:email)    {|n| "user#{n}@example.com" }
     password                 "password"
@@ -10,14 +10,11 @@ FactoryGirl.define do
     board     { Array.new(9) { ["O", "X", "-"].sample}.join("") }
     player1    
     player2
-    after(:build) do |game| 
-      game.active_player = game.player1
-    end
   end
 
   factory :game_with_winner, :parent => :game do 
     after(:create) do |game|
-      game.winner = game.active_player
+      game.winner = [game.player1, game.player2].sample
     end
   end
 end
