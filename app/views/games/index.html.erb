@@ -1,0 +1,11 @@
+<%= render "users/login_form", :user => @user %>
+
+<%= render "users/signup_form", :user => @user %>
+
+<% if @games %>
+  <% if current_user %>
+    <%= render "game_list_with_links", :games => @games%>
+  <% else %>
+    <%= render "game_list_without_links", :games => @games %>
+  <% end %>
+<% end %>

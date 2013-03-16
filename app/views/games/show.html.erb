@@ -1,20 +1,4 @@
-<table class="board">
-  <tr>
-    <td id="cell_0"><%= game.c0 %></td>
-    <td id="cell_1"><%= game.c1 %></td>
-    <td id="cell_2"><%= game.c2 %></td>
-  </tr>
-  <tr>
-    <td id="cell_3"><%= game.c3 %></td>
-    <td id="cell_4"><%= game.c4 %></td>
-    <td id="cell_5"><%= game.c5 %></td>
-  </tr>
-  <tr>
-    <td id="cell_6"><%= game.c6 %></td>
-    <td id="cell_7"><%= game.c7 %></td>
-    <td id="cell_8"><%= game.c8 %></td>
-  </tr>
-</table>
+<%= render 'game_board', :game => @game %>
 
 <script type="text/javascript">
   game.init({

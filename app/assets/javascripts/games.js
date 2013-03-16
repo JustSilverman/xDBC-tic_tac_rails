@@ -22,14 +22,32 @@ var game = {
 
   updateCell: function(cell){
     $(cell).append(game.playerToken);
-    this.sendToServer($(cell).text(), $(cell).attr('id'));
+    this.updateCurrentBoard(cell);
   },
+
+  updateCurrentBoard: function(cell){
+    var indexToUpdate = $(cell).attr('id').charAt(id.length-1);
+    this.substituteString(indexToUpdate);
+  },
+
+  substituteString: function(index){
+    this.currentBoard = this.firstPart(index) + this.playerToken + this.lastPart(index);
+    this.sendToServer(this.currentBoard);
+  },
+
+  firstPart: function(index){
+    this.currentBoard.substring(0,index-1);
+  },
+
+  lastPart: function(index){
+    this.currentBoard.substring(index-1, this.currentBoard.length-1);
+  }
 
   sendToServer: function(cellText, cellID){
     $.ajax({
       url: this.moveUrl,
       type: "POST",
-      data: { cell: cellID, value: cellText }
+      data: this.currentBoard
     }).done(function(data){
       game.waitForUpdate(data);
     });
