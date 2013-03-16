@@ -32,7 +32,7 @@ var game = {
       data: { cell: cellID, value: cellText }
     }).done(function(data){
       game.currentBoard = data;
-      game.cells.off('click');
+      game.disableClicks();
       if (checkForWinner.init(data)) {
         game.postWinner();
       }
@@ -68,10 +68,14 @@ var game = {
     }
     if (checkForWinner(string)) {
       game.displayWinner("You've lost!");
-    } else game.reOpenClicks();
+    } else game.enableClicks();
   },
 
-  reOpenClicks: function(){
+  disableClicks: function(){
+    game.cells.off('click');
+  },
+
+  enableClicks: function(){
     game.cells.on('click', function(){
       game.executeTurn(this);
     });
