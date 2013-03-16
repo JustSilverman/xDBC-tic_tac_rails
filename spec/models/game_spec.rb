@@ -50,4 +50,21 @@ describe Game do
       }.to change { game.board }.to(valid_board) 
     end  
   end
+
+  context '#player_token' do 
+    let(:game) { create(:game) }
+    let(:invalid_id) { game.player1_id + game.player2_id }
+
+    it "returns nil for invalid player id" do
+      game.player_token(invalid_id).should eq nil
+    end  
+
+    it "player_token should be O if user_id equals player1_id in game" do
+      game.player_token(game.player1_id).should eq 'O'
+    end  
+
+    it "player_token should be X if user_id equals player2_id in game" do
+      game.player_token(game.player2_id).should eq 'X'
+    end  
+  end
 end
