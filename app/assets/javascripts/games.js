@@ -31,13 +31,17 @@ var game = {
       type: "POST",
       data: { cell: cellID, value: cellText }
     }).done(function(data){
-      game.currentBoard = data;
-      game.disableClicks();
-      if (checkForWinner.init(data)) {
-        game.postWinner();
-      }
-      game.pollResults();
+      game.waitForUpdate(data);
     });
+  },
+
+  waitForUpdate: function(data){
+    this.currentBoard = data;
+    this.disableClicks();
+    if (checkForWinner.init(data)) {
+      this.postWinner();
+    }
+    this.pollResults();
   },
 
   postWinner: function(){
@@ -56,11 +60,15 @@ var game = {
       url: "/game/board",
       type: "POST"
     }).done(function(data){
-      if game.currentBoard == data {
-        setTimeout(function(){game.pullResults()}, 2000);
-      } else game.updateBoard(data);
+      game.checkStatus(data);
     });
   },
+
+  checkStatus: function(data){
+    if (this.currentBoard == data) {
+      setTimeout(function(){this.pullResults()}, 2000);
+    } else this.updateBoard(data);
+  }
 
   updateBoard: function(string) {
     for (var i = 0; i < string.length; i++) {
