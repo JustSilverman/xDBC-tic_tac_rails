@@ -107,7 +107,15 @@ var game = {
 
   populateTable: function(string){
     for (var i = 0; i < string.length; i++) {
-      $("#cell_"+i).text(string.charAt(i));
+      $("#cell_"+i).text(this.renderCell(string.charAt(i) ));
+    }
+  },
+
+  renderCell: function(char){
+    if (char == "X") {
+      return xImage;
+    } else if (char == "O") {
+      return oImage;
     }
   },
 

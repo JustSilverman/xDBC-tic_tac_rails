@@ -28,3 +28,8 @@
   height: 175px;
   background-color: rgba(255,0,0,0.5);
 }
+
+
+.board-data {
+  display: none;
+}
