@@ -1,27 +1,35 @@
 class GamesController < ApplicationController
+  respond_to :js, :json, :html
 
   def index
     @user = User.new
-    @game = Game.new
+    @games = Game.all
   end
 
   def create
-    @game = Game.new(params[:game])
+    @game = Game.new(player1: current_user)
+    redirect_to game_path(@game)
   end
 
   def update
+    @game = Game.find(params[:id])
+    @game.update_attributes(:player2 => current_user)
+    redirect_to game_path(@game)
   end
 
   def show
+    @game = Game.find(params[:id])
   end
    
-  def moves    
-  end
-
   def winner
   end
 
-  def status
+  def moves
+    @game = Game.find
+
+    @game.update!(params[:player_id])
+
+    respond_with @game
   end
 
 end

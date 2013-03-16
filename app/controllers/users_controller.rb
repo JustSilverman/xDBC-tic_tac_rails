@@ -2,21 +2,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-  end
-
-  def update
-  end
-
-  def show
+    if @user.save
+      login(@user.id)
+      redirect_to root_path     
+    else
+      render 'games/index'
+    end
   end
 
   def destroy
+    @user = User.find(params[:id])
+    @user.destroy if @user
   end
-
-  def login
-  end
-
-  def logout
-  end
-
 end

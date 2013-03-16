@@ -1,16 +1,12 @@
 TicTacRails::Application.routes.draw do
 
+  resources :users, :only => [:create, :destroy]
   resources :games, :only => [:index, :create, :update, :show] do
-    post 'moves'
     post 'winner'
-    post 'status'
   end
 
-  resources :users, :only  do
-    member do
-      post 'logout'
-      post 'login'
-    end
-  end
+  post '/login'  => 'sessions#create'
+  post '/logout' => 'sessions#destroy'
 
+  root :to => 'games#index'
 end
