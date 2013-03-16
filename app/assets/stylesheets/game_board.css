@@ -1,0 +1,18 @@
+.board {
+  margin: 5em auto;
+}
+
+.board td {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+
+#cell_0,#cell_1,#cell_2,#cell_3,#cell_4,#cell_5 {
+    border-bottom: 2px solid black;
+}
+
+td#cell_0, td#cell_1, td#cell_3, td#cell_4, td#cell_6, td#cell_7 {
+    border-right: 2px solid black;
+}

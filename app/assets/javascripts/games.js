@@ -86,7 +86,7 @@ var game = {
 
   checkStatus: function(data){
     if (this.currentBoard == data) {
-      setTimeout(function(){game.pollResults()}, 2000);
+      setTimeout(function(){game.pollResults()}, 500);
     } else this.updateBoard(data);
   },
 

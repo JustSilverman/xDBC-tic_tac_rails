@@ -1,6 +1,6 @@
 TicTacRails::Application.routes.draw do
 
-  resources :users, :only => [:create, :destroy]
+  resources :users, :only => [:create, :destroy, :show]
   resources :games, :only => [:index, :create, :update, :show] do
     post 'winner'
     post 'moves'

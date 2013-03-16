@@ -1,0 +1,15 @@
+<div class="header">
+  <div class="page-title"> 
+    <%= link_to "Tic Tac Rails", games_path %>
+  </div>
+  <div class="user-links">
+    <% if current_user %>
+      <%= link_to "#{current_user.username}", user_path(current_user) %>
+      <%= link_to "New Game", games_path, :method => :post %>
+      <%= link_to "Log Out", logout_path, :method => :post %>
+    <% else %>
+      <%= link_to "Sign Up", "#" %>
+      <%= link_to "Sign In", "#" %>
+    <% end %>
+  </div>
+</div>
