@@ -7,6 +7,8 @@ var game = {
     this.pollingUrl   = settings.polling_url;
     this.board        = $('.board');
     this.cells        = $('.board td');
+    // this.cellText     = $('.board td span')
+    // this.boardFromDOM = $('.board td span').text();
     this.currentBoard = settings.current_board;
     this.startGame();
     gameMessages.init();
