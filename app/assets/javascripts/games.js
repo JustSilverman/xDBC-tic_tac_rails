@@ -7,9 +7,8 @@ var game = {
     this.pollingUrl   = settings.polling_url;
     this.board        = $('.board');
     this.cells        = $('.board td');
-    // this.cellText     = $('.board td span')
-    // this.boardFromDOM = $('.board td span').text();
     this.currentBoard = settings.current_board;
+    this.images       = { 'X': settings.x_image, 'O': settings.o_image, " ": "" };
     this.startGame();
     gameMessages.init();
   },
@@ -27,22 +26,29 @@ var game = {
   },
 
   checkCellContents: function(cell){
-    if ($(cell).text() == " ") {
-      this.updateCell(cell);
+    var cellText = $(cell).children('span');
+    if (cellText.text() == " ") {
+      this.updateCell(cell, cellText);
     }
   },
 
-  updateCell: function(cell){
-    $(cell).text(game.playerToken);
-    this.updateCurrentBoard(cell);
+  updateCell: function(cell, cellText){
+    cellText.text(game.playerToken);
+    this.appendPhotoToCell(cell);
+  },
+
+  appendPhotoToCell: function(cell){
+    $(cell).append(game.images[game.playerToken])
+    this.updateCurrentBoard();
   },
 
   updateCurrentBoard: function(){
-    this.currentBoard = this.cells.text();
+    this.currentBoard = $('.board td span').text();
     this.sendToServer();
   },
 
   sendToServer: function(){
+    console.log(game.currentBoard);
     $.ajax({
       url: this.moveUrl,
       type: "POST",
@@ -108,16 +114,10 @@ var game = {
   },
 
   populateTable: function(string){
-    for (var i = 0; i < string.length; i++) {
-      $("#cell_"+i).text(this.renderCell(string.charAt(i) ));
-    }
-  },
-
-  renderCell: function(char){
-    if (char == "X") {
-      return xImage;
-    } else if (char == "O") {
-      return oImage;
+    $('.board td img').remove();
+    for (i in string) {
+      $("#cell_"+i).append(this.images[string.charAt(i)]);
+      $("#cell_"+i+" span").text(string.charAt(i));
     }
   },
 

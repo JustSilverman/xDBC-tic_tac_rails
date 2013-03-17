@@ -26,7 +26,6 @@ class Game < ActiveRecord::Base
   end  
 
   def set_winner!(user_id)
-    debugger
     return false unless self.player?(user_id)
     self.update_attributes(:winner => User.find(user_id))
   end    

@@ -11,7 +11,9 @@
       'move_url': '<%= j game_moves_path(@game) %>',
       'winning_url': '<%= j game_winner_path(@game) %>',
       'polling_url': '<%= j game_path(@game) %>',
-      'current_board': '<%= j @game.board %>'
+      'current_board': '<%= j @game.board %>',
+      'x_image': '<%= j image_tag "/assets/X.png", class: "board-icon" %>',
+      'o_image': '<%= j image_tag "/assets/O.png", class: "board-icon" %>'
     });
   });
 </script>

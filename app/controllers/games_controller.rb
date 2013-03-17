@@ -28,7 +28,7 @@ class GamesController < ApplicationController
    
   def winner
     @game = Game.find(params[:game_id])
-    @game.set_winner!(params[:winner_id])
+    @game.set_winner!(params[:winner_id].to_i)
     redirect_to root_path
   end
 
