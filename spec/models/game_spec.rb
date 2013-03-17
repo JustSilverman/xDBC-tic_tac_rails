@@ -4,9 +4,17 @@ describe Game do
   let!(:game) { create(:game) }
 
   context 'validations' do
-    it { should validate_presence_of(:board) }
     it { should validate_presence_of(:player1) }
-    it { should validate_uniqueness_of(:player1_id).scoped_to(:player2_id) }
+
+    before do
+      @game = Game.create(player1_id: 1, player2_id: 1)
+    end
+    
+    it 'should not be valid if player1 and player2 are the same' do
+      @game.valid?
+      @game.errors.full_messages.should include("Players must be unique")
+    end
+
   end
 
   context 'associations' do
@@ -17,16 +25,18 @@ describe Game do
 
   context '.new' do
     it 'will have a board that is a string' do
-      Game.new.board.should be_a(String)
+      @game = Game.create :player1 => create(:user)
+      @game.board.should be_a(String)
     end
 
     it 'will have a blank board' do
-      Game.new.board.should eq "-" * 9
+      @game = Game.create :player1 => create(:user)
+      @game.board.should eq " " * 9
     end
   end
 
   context '#update!' do
-    let(:game) { create(:game, :board => "-" * 9) }
+    let(:game) { create(:game, :board => " " * 9) }
     let(:invalid_board) { "X" * 3 }
     let(:valid_board) { Array.new(9) { ["O", "X", "-"].sample}.join("") }
     
@@ -58,11 +68,11 @@ describe Game do
     end  
 
     it "player_token should be O if user_id equals player1_id in game" do
-      game.player_token(game.player1_id).should eq 'O'
+      game.player_token(game.player1_id).should eq 'X'
     end  
 
     it "player_token should be X if user_id equals player2_id in game" do
-      game.player_token(game.player2_id).should eq 'X'
+      game.player_token(game.player2_id).should eq 'O'
     end  
   end
 

@@ -7,7 +7,7 @@ FactoryGirl.define do
   end
 
   factory :game do 
-    board     { Array.new(9) { ["O", "X", "-"].sample}.join("") }
+    board     { Array.new(9) { ["O", "X", " "].sample}.join("") }
     player1    
     player2
   end
