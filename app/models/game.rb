@@ -1,9 +1,9 @@
 class Game < ActiveRecord::Base
 
-  attr_accessible :board, :player1, :player2, :winner, :player1_id, :player2_id
-  
+  attr_accessible :board, :player1, :player2, :winner
+
   validates :player1, :presence => true
-  validate :unique_players
+  validate  :unique_players
 
   belongs_to :player1, :class_name => 'User'
   belongs_to :player2, :class_name => 'User'
@@ -24,12 +24,12 @@ class Game < ActiveRecord::Base
 
   def player?(user_id)
     players.include?(user_id)
-  end  
+  end
 
   def set_winner!(user_id)
     return false unless self.player?(user_id)
     self.update_attributes(:winner => User.find(user_id))
-  end    
+  end
 
   private
   def players
@@ -37,8 +37,8 @@ class Game < ActiveRecord::Base
   end
 
   def unique_players
-    if self.player1_id == self.player2_id  
+    if self.player1_id == self.player2_id
       errors[:base] << "Players must be unique"
-    end  
-  end  
+    end
+  end
 end

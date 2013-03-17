@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  # before_filter :authorized?, :only => [:show, :moves]
+  before_filter :authorized?, :only => [:show, :moves]
   respond_to :js, :json, :html
 
   def index
@@ -25,7 +25,7 @@ class GamesController < ApplicationController
       format.json { render :json => @game.board.to_json }
     end
   end
-   
+
   def winner
     @game = Game.find(params[:game_id])
     @game.set_winner!(params[:winner_id].to_i)
@@ -39,10 +39,10 @@ class GamesController < ApplicationController
     render :json => @game.board.to_json
   end
 
-  private 
+  private
 
   def authorized?
     @game = Game.find(params[:id])
-    redirect_to root_path unless @game.player?(current_user)
+    redirect_to root_path unless @game.player?(current_user.id) || @game.player2.nil?
   end
 end
