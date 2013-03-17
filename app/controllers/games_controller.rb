@@ -4,7 +4,7 @@ class GamesController < ApplicationController
 
   def index
     @user = User.new
-    @games = Game.all
+    @games = Game.incomplete
   end
 
   def create

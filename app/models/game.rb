@@ -28,7 +28,15 @@ class Game < ActiveRecord::Base
   def set_winner!(user_id)
     return false unless self.player?(user_id)
     self.update_attributes(:winner => User.find(user_id))
-  end    
+  end  
+
+  def complete?
+    !self.board.include?(" ") || self.winner
+  end  
+
+  def self.incomplete
+    Game.all.delete_if { |game| game.complete? }
+  end
 
   private
   def players
