@@ -1,12 +1,10 @@
 <div class="form signin-form">
+  <%= render 'layouts/errors', :errors => errors %>
+
   <%= form_for user, :url => { :action => 'login', :method => "post", :controller => 'sessions'} do |f| %>
 
-    <p>
-      <%= f.text_field :email, :placeholder => 'Email' %>
-    </p>
-    <p>
-      <%= f.password_field :password, :placeholder => 'Password' %>
-    </p>
+    <p><%= f.text_field :email, :placeholder => 'Email' %></p>
+    <p><%= f.password_field :password, :placeholder => 'Password' %></p>
 
     <p><%= f.submit 'Sign In' %></p>
 

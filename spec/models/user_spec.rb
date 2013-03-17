@@ -20,9 +20,9 @@ describe User do
     it { should have_many(:won_games) }
   end
 
-  context '#authenticate' do 
-    let!(:user) { create(:user) }
-    
+  context '#authenticate' do
+    let(:user) { create(:user) }
+
     it 'logs in with the correct password' do
       expect {
         user.authenticate("password")
@@ -33,6 +33,28 @@ describe User do
       expect {
         user.authenticate("notpassword")
       }.to be_true
+    end
+  end
+
+  context '#games' do
+    let(:user)   { create(:user) }
+    let(:game_1) { create(:game, :player1 => user) }
+    let(:game_2) { create(:game, :player2 => user) }
+
+    it 'returns an activerecord relation' do
+      user.games.should be_an(ActiveRecord::Relation)
+    end
+
+    it 'returns an empty activerecord relation if user has no games' do
+      user.games.empty?.should be_true
+    end
+
+    it 'does not return nil if user has no games' do
+      user.games.nil?.should_not be_true
+    end
+
+    it 'includes games where user is player1 or player2' do
+      user.games.should include(game_1, game_2)
     end
   end
 end

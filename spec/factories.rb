@@ -6,13 +6,19 @@ FactoryGirl.define do
     password_confirmation    "password"
   end
 
-  factory :game do 
-    board     { Array.new(9) { ["O", "X", " "].sample}.join("") }
-    player1    
+  factory :game do
+    board     nil
+    player1
     player2
   end
 
-  factory :game_with_winner, :parent => :game do 
+  factory :game_with_populated_board do
+    board     { Array.new(9) { ["O", "X", " "].sample}.join("") }
+    player1
+    player2
+  end
+
+  factory :game_with_winner, :parent => :game do
     after(:create) do |game|
       game.winner = [game.player1, game.player2].sample
     end
