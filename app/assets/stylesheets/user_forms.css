@@ -2,7 +2,7 @@
   display: none;
   float: right;
   padding: 0 15px 0 0;
-} 
+}
 
 .form input[type="text"], input[type="password"] {
   border-radius: 5px;
@@ -19,4 +19,15 @@
   border-radius: 5px;
   border: none;
   padding: 5px;
+}
+
+ul.errors {
+  margin-bottom: 0.5em;
+  padding-left: 0.3em;
+  list-style-type: none;
+}
+
+.errors {
+  color: #c00;
+  font-size: 1em;
 }

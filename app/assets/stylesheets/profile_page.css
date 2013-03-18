@@ -1,0 +1,12 @@
+.user-page {
+	width: 720px;
+	margin: auto;
+}
+
+.stats {
+	float: left;
+}
+
+#chart_div {
+	float: right;
+}

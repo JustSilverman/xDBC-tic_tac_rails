@@ -1,0 +1,23 @@
+.bar-chart {
+	list-style: none;
+}
+
+.bar-chart li {
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	min-width: 65px;
+	max-width: 500px;
+}
+
+.bar-chart .wins {
+	background-color: #74E8A4 ;
+}
+
+.bar-chart .losses {
+	background-color: #F56E6E ;
+}
+
+.bar-chart .ties {
+	background-color: #C7C7C7 ;
+}

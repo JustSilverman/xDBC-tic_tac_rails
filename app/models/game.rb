@@ -1,8 +1,9 @@
 class Game < ActiveRecord::Base
 
-  attr_accessible :board, :player1, :player2, :winner
+  attr_accessible :board, :player1, :player2, :winner, :player1_id, :player2_id
   
   validates :player1, :presence => true
+  validate :unique_players
 
   belongs_to :player1, :class_name => 'User'
   belongs_to :player2, :class_name => 'User'
@@ -42,4 +43,10 @@ class Game < ActiveRecord::Base
   def players
     [self.player1_id, self.player2_id]
   end
+
+  def unique_players
+    if self.player1_id == self.player2_id  
+      errors[:base] << "Players must be unique"
+    end  
+  end  
 end

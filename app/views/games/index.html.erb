@@ -1,6 +1,6 @@
-<%= render "users/login_form", :user => @user %>
+<%= render "users/login_form", :user => @user, :errors => @message %>
 
-<%= render "users/signup_form", :user => @user %>
+<%= render "users/signup_form", :user => @user, :errors => @user.errors.full_messages %>
 
 <% if @games %>
   <% if current_user %>

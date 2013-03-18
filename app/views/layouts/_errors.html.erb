@@ -1,0 +1,11 @@
+<% if errors %>
+  <ul class="errors">
+    <% if errors.respond_to?(:each) %>
+      <% errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    <% else %>
+      <li><%= errors %></li>
+    <% end %>
+  </ul>
+<% end %>

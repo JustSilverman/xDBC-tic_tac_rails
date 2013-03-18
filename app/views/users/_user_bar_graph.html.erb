@@ -1,0 +1,38 @@
+<div id="chart_div">
+  <ul class="bar-chart">
+    <li class="wins" style="width:<%= wins * 100 %>px;">
+      Wins: <%= wins %>
+    </li>
+    <li class="losses" style="width:<%= losses * 100 %>px;">
+      Losses: <%= losses %>
+    </li>
+    <li class="ties" style="width:<%= ties * 100 %>px;">
+      Ties: <%= ties %>
+    </li>
+  </ul>
+</div>
+
+<!-- <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  var ties = '<%= ties %>';
+  google.load('visualization', '1.0', {'packages':['corechart']});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Outcome');
+    data.addColumn('number', 'Total');
+    data.addRows([
+      ['Ties', ties ],
+      ['Wins', createCustomHTMLContent('<%= wins.to_i %>')],
+      ['Losses', '<%= losses.to_i %>' ]
+    ]);
+
+  var options = {'title':'Your Game Stats',
+                 'width':400,
+                 'height':300};
+
+  var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+ </script> -->
