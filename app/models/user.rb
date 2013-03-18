@@ -22,4 +22,19 @@ class User < ActiveRecord::Base
     Game.where("player1_id OR player2_id = ?", self.id)
   end
 
+  def games_won
+    Game.where("winner_id = ?", self.id).count
+  end
+
+  def games_lost
+    self.games.count - self.games_won - self.games_tied
+  end
+
+  def games_tied
+    ties = []
+    self.games.each do |game|
+      ties << game unless game.winner_id
+    end
+    ties.count
+  end
 end

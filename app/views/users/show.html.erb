@@ -1,0 +1,8 @@
+<div class="user-page">
+	<div class="stats">
+		<p>Hello, <%= current_user.username %>!</p>
+		<p>You have played <%= current_user.games.count %> games.</p>
+	</div>
+
+	<%= render "user_bar_graph" %>
+</div>
