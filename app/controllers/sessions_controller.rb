@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def login
+    puts params
     @user = User.find_by_email(params[:user][:email])
     if @user && @user.authenticate(params[:user][:password])
       login!(@user.id)

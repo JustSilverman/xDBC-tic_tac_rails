@@ -15,9 +15,7 @@ var game = {
 
   startGame: function(){
     if (this.playerToken == "X" ) {
-      game.cells.on('click', function(){
-        game.executeTurn(this);
-      });
+      this.enableClicks();
     } else this.pollResults();
   },
 
@@ -126,7 +124,7 @@ var game = {
   },
 
   enableClicks: function(){
-    game.cells.on('click', function(){
+    this.cells.on('click', function(){
       game.executeTurn(this);
     });
   },
